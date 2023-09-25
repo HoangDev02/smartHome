@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+// const changeStream = Event.watch(); 
 const eventSchema = new mongoose.Schema({
   deviceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Device' }, // Thiết bị liên quan đến sự kiện
   eventType: { type: String, required: true }, // Loại sự kiện (bật/tắt)

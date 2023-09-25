@@ -5,8 +5,8 @@
     protocol: 'mqtts',
     username: 'esp8266Den',
     password: 'esp8266Den'
-  }
+}
 
 const DHT = "DHT";
-
-module.exports = { options, DHT };
+const LED = "LED";
+module.exports = { options, DHT,LED };

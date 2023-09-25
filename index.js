@@ -5,12 +5,16 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const dotenv = require('dotenv');
-const locationRoute = require('./api/routes/location.route');
 const connectMongodb = require('./api/connect/connect');
 const mqtt = require('mqtt');
 const TempHumidity = require('./api/models/tempHumiditymodel');
 const {connect} = require('./api/cli/publisher')
 const {subscriber} = require('./api/cli/subscriber');
+
+const locationRoute = require('./api/routes/location.route');
+const roomsRoutes = require('./api/routes/roomsRoutes')
+const deviceRouter = require('./api/routes/deviceRouter');
+
 const port = 8080;
 dotenv.config();
 
@@ -87,7 +91,8 @@ app.use(cors());
 // });
 
 app.use('/v1/api/location', locationRoute);
-
+app.use('/api/room', roomsRoutes)
+app.use('/api/devices', deviceRouter);
 app.listen(port, () => {
   subscriber();
   connect();

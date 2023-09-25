@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const { DHT, options } = require('./topic');
+const { DHT, options, LED } = require('./topic');
 
 const client = mqtt.connect(options);
 
@@ -27,5 +27,10 @@ const connect = async () => {
     console.log(err);
   }
 };
+ const publishLedStatus = async (deviceId, status) => {
+  const message = status ? '1' : '0'; 
+  client.publish(LED, message, { qos: 1, retain: true });
 
-module.exports = { connect, client };
+  console.log(`Đã publish trạng thái của đèn ${deviceId}: ${message}`);
+}
+module.exports = { connect, client, publishLedStatus };

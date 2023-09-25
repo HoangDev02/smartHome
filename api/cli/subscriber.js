@@ -1,30 +1,35 @@
 // subscriber.js
 const mqtt = require('mqtt');
 const TempHumidity = require('../models/tempHumiditymodel');
-const { DHT, options } = require('./topic');
+const { DHT, LED } = require('./topic');
 const { client, connect } = require('./publisher');
-
+const Device = require('../models/deviceModel')
 // connect()
 
-function subscriber() {
-    client.on('message', (receivedTopic, message) => {
-        if (receivedTopic === DHT) { // Kiểm tra topic nhận được
-          // Chuyển đổi thông điệp từ dạng chuỗi thành một đối tượng dữ liệu
-          const messageString = message.toString();
-          const data = parseTemperatureAndHumidity(messageString);
-    
-          // Kiểm tra xem có dữ liệu hợp lệ
-          if (data) {
-            const { temperature, humidity } = data;
-            console.log(`Temperature: ${temperature}, Humidity: ${humidity}`);
-    
+async function subscriber() {
+  client.on('message', async (receivedTopic, message) => {
+    if (receivedTopic === DHT) {
+      // Chuyển đổi thông điệp từ dạng chuỗi thành một đối tượng dữ liệu
+      const messageString = message.toString();
+      const data = parseTemperatureAndHumidity(messageString);
+
+      // Kiểm tra xem có dữ liệu hợp lệ
+      if (data) {
+        const { temperature, humidity, deviceId } = data;
+        
+        // Tìm phòng chứa thiết bị có deviceId tương ứng
+        try {
+          const device = await Device.findOne({ 'devices.id': deviceId });
+          if (device) {
+            console.log(`Temperature: ${temperature}, Humidity: ${humidity}, device: ${device.name}`);
+            
             // Lưu dữ liệu vào MongoDB
             const tempHumidityData = new TempHumidity({
               temperature,
               humidity,
-              timestamp: new Date(),
+              deviceId: device.id,
+              timestamp: new Date()
             });
-    
             tempHumidityData.save()
               .then(() => {
                 console.log('Dữ liệu đã được lưu vào MongoDB');
@@ -33,12 +38,18 @@ function subscriber() {
                 console.error('Lỗi khi lưu dữ liệu vào MongoDB:', error);
               });
           } else {
-            console.error('Dữ liệu không hợp lệ:', messageString);
+            console.error(`Không tìm thấy phòng cho thiết bị có deviceId: ${deviceId}`);
           }
+        } catch (error) {
+          console.error('Lỗi khi tìm kiếm phòng trong MongoDB:', error);
         }
-    });
-    
+      } else {
+        console.error('Dữ liệu không hợp lệ:', messageString);
+      }
+    }
+  });
 }
+
 
 function parseTemperatureAndHumidity(messageString) {
     const temperatureRegex = /Temperature: (\d+\.\d+)°C/i;
