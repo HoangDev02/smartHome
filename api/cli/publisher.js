@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const { DHT, options, LED } = require('./topic');
+const { DHT, options, LED, PAN ,MANUALLY} = require('./topic');
 
 const client = mqtt.connect(options);
 
@@ -27,10 +27,24 @@ const connect = async () => {
     console.log(err);
   }
 };
- const publishLedStatus = async (deviceId, status) => {
+const publishLedStatus = async (deviceId, status) => {
   const message = status ? '1' : '0'; 
   client.publish(LED, message, { qos: 1, retain: true });
 
   console.log(`Đã publish trạng thái của đèn ${deviceId}: ${message}`);
 }
-module.exports = { connect, client, publishLedStatus };
+
+const publishPanStatus = async (deviceId, status) => {
+  const message = status ? '1' : '0'; 
+  client.publish(PAN, message, { qos: 1, retain: true });
+
+  console.log(`Đã publish trạng thái của PAN ${deviceId}: ${message}`);
+}
+
+const publishManuallyStatus = async (deviceId, status) => {
+  const message = status ? '1' : '0'; 
+  client.publish(MANUALLY, message, { qos: 1, retain: true });
+
+  console.log(`Đã publish trạng thái của Manually ${deviceId}: ${message}`);
+}
+module.exports = { connect, client, publishLedStatus, publishPanStatus,publishManuallyStatus };

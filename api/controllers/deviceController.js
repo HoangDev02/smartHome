@@ -1,5 +1,5 @@
 const Device = require('../models/deviceModel');
-const {publishLedStatus} = require('../cli/publisher')
+const {publishLedStatus , publishPanStatus, publishManuallyStatus} = require('../cli/publisher')
 
 exports.getDevices = async(req, res) => {
   try {
@@ -21,6 +21,7 @@ exports.createDevice = async (req, res) => {
     res.status(400).json({message: 'Invalid device data'});
   }
 }
+
 exports.updateLedStatus = async (req, res) => {
   const { id, status } = req.body;
   const device = await Device.findByIdAndUpdate(id, {status}, {new: true});
@@ -29,4 +30,22 @@ exports.updateLedStatus = async (req, res) => {
   publishLedStatus(device.id, status); 
   
   res.json(device);
+}
+
+exports.updatePanStatus = async(req,res) => {
+  const {id, status} = req.body;
+  const device = await Device.findByIdAndUpdate(id, {status}, {new: true});
+
+  publishPanStatus(device.id, status)
+  res.json(device);
+
+}
+
+exports.updateManuallyStatus = async(req,res) => {
+  const {id, status} = req.body;
+  const device = await Device.findByIdAndUpdate(id, {status}, {new: true});
+
+  publishManuallyStatus(device.id, status)
+  res.json(device);
+
 }

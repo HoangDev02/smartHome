@@ -9,4 +9,6 @@
 
 const DHT = "DHT";
 const LED = "LED";
-module.exports = { options, DHT,LED };
+const PAN = "PAN";
+const MANUALLY = "MANUALLY";
+module.exports = { options, DHT,LED, PAN ,MANUALLY};
