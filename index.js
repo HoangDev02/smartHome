@@ -3,24 +3,40 @@ const app = express();
 var cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const path = require('path');
+const morgan = require('morgan');
+const methodOverride = require('method-override')
 
 const dotenv = require('dotenv');
 const connectMongodb = require('./api/connect/connect');
-const mqtt = require('mqtt');
-const TempHumidity = require('./api/models/tempHumiditymodel');
 const {connect} = require('./api/cli/publisher')
 const {subscriber} = require('./api/cli/subscriber');
 
-const locationRoute = require('./api/routes/location.route');
 const roomsRoutes = require('./api/routes/roomsRoutes')
 const deviceRouter = require('./api/routes/deviceRouter');
+const tempHumidityRouter = require('./api/routes/tempHumidityRouter');
+const userRouter = require('./api/routes/userRouter')
 
-const port = 8080;
+const port = 3100;
 dotenv.config();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({ credentials: true, origin: true }));
+
+//change text in jason
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(methodOverride('_method'))
+app.use(morgan('combined'))
 
 // var options = {
 //   host: 'f63a3874d1364c15ba9d13699c92dc63.s1.eu.hivemq.cloud',
@@ -90,9 +106,11 @@ app.use(cors());
 //   console.log('Kết nối đã đóng');
 // });
 
-app.use('/v1/api/location', locationRoute);
 app.use('/api/room', roomsRoutes)
 app.use('/api/devices', deviceRouter);
+app.use('/api/tempHumidity', tempHumidityRouter);
+app.use('/api/user', userRouter);
+
 app.listen(port, () => {
   subscriber();
   connect();

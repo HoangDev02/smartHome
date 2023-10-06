@@ -1,6 +1,21 @@
 const mqtt = require('mqtt');
-const { DHT, options, LED, PAN ,MANUALLY} = require('./topic');
+const { DHT,  LED, PAN ,MANUALLY, DISTANCE, FLAME} = require('./topic');
 
+require('dotenv').config()
+
+const MQTT_BROKER_HOST = process.env.MQTT_BROKER_HOST
+const MQTT_BROKER_PORT = process.env.MQTT_BROKER_PORT
+const MQTT_BROKER_PROTOCOL = process.env.MQTT_BROKER_PROTOCOL
+const MQTT_USERNAME = process.env.MQTT_USERNAME
+const MQTT_PASSWORD = process.env.MQTT_PASSWORD
+
+const options = {
+  host: MQTT_BROKER_HOST,
+  port: MQTT_BROKER_PORT,
+  protocol: MQTT_BROKER_PROTOCOL,
+  username: MQTT_USERNAME,
+  password: MQTT_PASSWORD
+}
 const client = mqtt.connect(options);
 
 const connect = async () => {
@@ -15,6 +30,21 @@ const connect = async () => {
       client.subscribe([DHT], () => {
         console.log(`Subscribe to topic ${DHT}`);
       });
+      client.subscribe([DISTANCE], () => {
+        console.log(`Subscribe to topic ${DISTANCE}`);
+      });
+      client.subscribe([FLAME], () => {
+        console.log(`Subscribe to topic ${FLAME}`);
+      });
+      client.subscribe([PAN], () => {
+        console.log(`Subscribe to topic ${PAN}`);
+      });
+      client.subscribe([MANUALLY], () => {
+        console.log(`Subscribe to topic ${MANUALLY}`);
+      });
+      client.subscribe([LED], () => {
+        console.log(`Subscribe to topic ${LED}`);
+      });
     });
 
     // client.on('message', (receivedTopic, message) => {
@@ -27,24 +57,18 @@ const connect = async () => {
     console.log(err);
   }
 };
-const publishLedStatus = async (deviceId, status) => {
-  const message = status ? '1' : '0'; 
-  client.publish(LED, message, { qos: 1, retain: true });
 
-  console.log(`Đã publish trạng thái của đèn ${deviceId}: ${message}`);
+const publishLCDStatus = async (topic,deviceId, type) => {
+  const message = type; 
+  client.publish(topic, message);
+
+  console.log(`Đã publish trạng thái của PAN ${deviceId}: ${topic}`);
 }
 
-const publishPanStatus = async (deviceId, status) => {
+const publishManuallyStatus = async (topic,deviceId, status) => {
   const message = status ? '1' : '0'; 
-  client.publish(PAN, message, { qos: 1, retain: true });
+  client.publish(topic, message, { qos: 1, retain: true });
 
-  console.log(`Đã publish trạng thái của PAN ${deviceId}: ${message}`);
+  console.log(`Đã publish trạng thái  ${deviceId}: ${topic}`);
 }
-
-const publishManuallyStatus = async (deviceId, status) => {
-  const message = status ? '1' : '0'; 
-  client.publish(MANUALLY, message, { qos: 1, retain: true });
-
-  console.log(`Đã publish trạng thái của Manually ${deviceId}: ${message}`);
-}
-module.exports = { connect, client, publishLedStatus, publishPanStatus,publishManuallyStatus };
+module.exports = { connect, client, publishLCDStatus,publishManuallyStatus };
