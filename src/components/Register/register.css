@@ -1,0 +1,60 @@
+.register-container {
+    width: 400px;
+    margin: 0px auto;
+    padding: 90px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom right, #09334b, #012740);
+    animation: slideBg 10s ease infinite; 
+  }
+   @keyframes slideBg {
+    0% {
+      background-position: 0 0; 
+    }
+    50% {
+       background-position: 400px 0;
+    }
+    100% {
+       background-position: 0 0;
+    }
+  }
+  .register-title {
+    color: #fff;
+    text-align: center; 
+    animation: slideDown 0.5s ease forwards;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-control {
+    background-color: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 5px; 
+    padding: 12px 15px;
+    margin-bottom: 15px; 
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  
+  .register-button {
+    align-self: flex-end; 
+    padding: 12px 15px;
+    background-color: #05ae3e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;  
+  }
+  
+  .register-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+  
+  .register-error-message {
+    color: #f94646;
+    text-align: center;
+    margin-bottom: 10px; 
+  }

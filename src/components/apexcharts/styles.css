@@ -1,0 +1,58 @@
+/* styles.css */
+
+/* Định dạng toàn bộ biểu đồ */
+
+.temperature-chart {
+  width: 700px;
+  margin: 0 auto;
+}
+
+/* Định dạng tiêu đề của biểu đồ */
+
+.temperature-chart h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+/* Định dạng biểu đồ con */
+
+.temperature-chart .apexcharts-canvas {
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Định dạng chú thích trục Y */
+
+.temperature-chart .apexcharts-yaxis-label {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Định dạng các dấu gợi ý trên đường */
+
+.temperature-chart .apexcharts-tooltip {
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.temperature-alert {
+  background-color: #09334b;
+  width: 85%;
+  padding: 20px 20px;
+  margin-top: 20px;
+  height: 200px;
+  margin-left: 60px;
+  box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),
+    inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.temperature-alert h3 {
+  font-size: 24px;
+}
+
+.temperature-alert p {
+  color: #fff;
+}

@@ -1,0 +1,21 @@
+.hero__section {
+  position: relative;
+  top: 90px;
+  width: 100%;
+  padding: 0 30px;
+  display: flex;
+}
+
+.container-left {
+  width: 50%;
+}
+
+.container-right {
+  position: relative;
+  top: 10px;
+  width: 50%;
+}
+
+/* .container-left h2 {
+    margin-bottom: 20px;
+  } */

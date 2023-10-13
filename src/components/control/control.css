@@ -1,0 +1,323 @@
+
+.control {
+  width: 90%;
+  position: relative;
+  left: 80px;
+  top: 35px;
+  background: #09334b;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  flex-direction: column;
+
+}
+
+.control .container-btn {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+/*  */
+
+.wrapper_btn {
+  background-color: rgb(107, 105, 105);
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),
+    inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 10px 30px 0 10px;
+  position: relative;
+
+}
+
+.button {
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 0;
+  color: white;
+
+}
+
+p {
+  position: relative;
+  top: 10px;
+  color: #fff;
+  font-weight: 600;
+
+}
+
+.wrapper_btn > span {
+  /* background: green; */
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  margin-top: 10px;
+
+}
+
+i {
+  font-size: 45px;
+  color: #fff;
+}
+
+.hidden-checkbox {
+  display: none;
+}
+
+.wrapper_btn input:nth-child(2) {
+  display: flex;
+}
+
+.slider {
+  display: block;
+  font-size: 10px;
+  position: relative;
+  animation: flicker 1s linear infinite;
+
+}
+
+.slider::after {
+  content: "OFF";
+  width: 23px;
+  height: 23px;
+  background-color: #e03c3c;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  top: -5px;
+  left: 0;
+  display: grid;
+  place-content: center;
+  line-height: 0;
+  transition: background-color 0.25s, transform 0.25s ease-in;
+
+}
+
+input:checked + .slider::after {
+  content: "ON";
+  background-color: #05ae3e;
+  transform: translateX(25px) rotate(360deg);
+}
+
+/* .wrapper_btn input:nth-child(2) {
+  display: flex;
+} */
+
+img {
+  max-width: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+
+}
+
+.rotate-animation {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.handmade_btn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  animation: motion 5s ease-in-out infinite;
+
+}
+
+#checkbox {
+  display: none;
+}
+
+.switch {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(99, 99, 99);
+  border-radius: 50%;
+  z-index: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgb(126, 126, 126);
+  box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
+}
+
+.powersign {
+  position: relative;
+  width: 55%;
+  height: 55%;
+  border: 4px solid rgb(48, 48, 48);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.powersign::before {
+  content: "";
+  width: 8px;
+  height: 100%;
+  background-color: rgb(99, 99, 99);
+  position: absolute;
+  top: -60%;
+  z-index: 2;
+}
+
+.powersign::after {
+  content: "";
+  width: 4px;
+  height: 100%;
+  background-color: rgb(48, 48, 48);
+  position: absolute;
+  top: -60%;
+  z-index: 3;
+}
+
+#checkbox:checked + .switch .powersign {
+  border: 4px solid rgb(255, 255, 255);
+  box-shadow: 0px 0px 10px var(--main-color),
+    0px 0px 5px var(--main-color) inset;
+}
+
+#checkbox:checked + .switch .powersign::after {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 5px var(--main-color);
+}
+
+#checkbox:checked + .switch {
+  box-shadow: 0px 0px 1px var(--main-color) inset,
+    0px 0px 2px var(--main-color) inset, 0px 0px 10px var(--main-color) inset;
+  border: 2px solid rgb(255, 255, 255);
+  background-color: var(--main-color);
+}
+
+#checkbox:checked + .switch .powersign::before {
+  background-color: var(--main-color);
+}
+
+/* Fan btn */
+
+#fanbtn {
+  position: relative;
+  top: 25px;
+  left: 3px;
+}
+
+#fanbtn:checked + .switch .powersign {
+  border: 4px solid rgb(255, 255, 255);
+  box-shadow: 0px 0px 10px var(--main-color),
+    0px 0px 5px var(--main-color) inset;
+}
+
+#fanbtn:checked + .switch .powersign::after {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 5px var(--main-color);
+}
+
+#fanbtn:checked + .switch {
+  box-shadow: 0px 0px 1px var(--main-color) inset,
+    0px 0px 2px var(--main-color) inset, 0px 0px 10px var(--main-color) inset;
+  border: 2px solid rgb(255, 255, 255);
+  background-color: var(--main-color);
+}
+
+#fanbtn:checked + .switch .powersign::before {
+  background-color: var(--main-color);
+}
+
+.handmade_button {
+  display: none;
+  /* display: flex; */
+  position: absolute;
+  left: 5px;
+  top: 3px;
+}
+.lcd {
+  width: 90%;
+  padding: 10px;
+  background-color: #bbb;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.lcd_button {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 1rem;
+}
+
+button[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #09334b;
+  color: #fff;
+  cursor: pointer;
+}
+.sersorBody {
+  margin-top: 20px;
+}
+
+@keyframes motion {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(10px) rotate(5deg);
+  }
+  50% {
+    transform: translateX(0) rotate(0eg);
+  }
+  75% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+} 
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    color: #fff;
+    text-shadow: 
+      0 0 7px #fff,
+      0 0 50px #fff,
+      0 0 100px #fff;
+  }
+
+  20%, 24%, 55% {        
+    color: transparent;
+    text-shadow: none;
+  }
+}

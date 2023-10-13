@@ -1,0 +1,70 @@
+.login-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 90px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom right, #09334b, #012740);  
+    animation: slideBg 10s ease infinite;
+  }
+  @keyframes slideBg {
+    0% {
+      background-position: 0 0; 
+    }
+    50% {
+       background-position: 400px 0;
+    }
+    100% {
+       background-position: 0 0;
+    }
+  }
+  
+  .login-title {
+    color: #fff;
+    text-align: center; 
+    animation: slideDown 0.5s ease forwards;
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .form-control-login {
+    background-color: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 5px;
+    padding: 12px 15px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1); 
+  }
+  
+  .login-button {
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 15px;
+    background-color: #05ae3e;
+    color: #fff;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .login-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+  
+  .login-register {
+    color: #ddd;
+    text-align: center;
+  }
+  
+  .login-register-link {
+    color: #05ae3e;  
+  }
