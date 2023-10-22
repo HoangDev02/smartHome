@@ -12,19 +12,19 @@ test('test register flow', async ({ page }) => {
   const submitButton = registerForm.locator('button[type="submit"]');
 
   // Test
-  await page.goto('http://localhost:3000/register');
+  await page.goto('https://smart-offices.vercel.app/register');
 
   await emailInput.fill('test@example.com');
   await usernameInput.fill('testuser');
   await passwordInput.fill('123456');
   const [response] = await Promise.all([
-    page.waitForResponse('http://localhost:3100/api/user/register'),
+    page.waitForResponse('https://smart-home-wodd.onrender.com/api/user/register'),
     submitButton.click() 
   ]);
 
   expect(response.status()).toBe(200);
 
-  await expect(page).toHaveURL('http://localhost:3000/login');
+  await expect(page).toHaveURL('https://smart-offices.vercel.app/login');
 });
 test('test register validation', async ({ page }) => {
 
@@ -37,7 +37,7 @@ test('test register validation', async ({ page }) => {
 
   const errorMessages = page.locator('.register-error-message');
   // Test
-  await page.goto('http://localhost:3000/register');
+  await page.goto('https://smart-offices.vercel.app/register');
 
   await emailInput.fill('');
   await passwordInput.fill('');
@@ -58,7 +58,7 @@ test('Failed register with empty username and password', async ({ page }) => {
  const submitButton = registerForm.locator('button[type="submit"]');
   const errorMessages = page.locator('.register-error-message');
   // Test
-  await page.goto('http://localhost:3000/register');
+  await page.goto('https://smart-offices.vercel.app/register');
 
   await emailInput.fill('');
   await passwordInput.fill('');

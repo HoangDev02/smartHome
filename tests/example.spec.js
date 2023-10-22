@@ -4,7 +4,7 @@ const { test, expect } = require('@playwright/test');
 // e2e.spec.ts
 test('Test turn on/off fan', async ({ page }) => {
 
-  await page.goto('http://localhost:3000/');
+  await page.goto('https://smart-offices.vercel.app/');
 
   await page.click('label.button_PAN ');
 
@@ -31,7 +31,7 @@ test('Test turn on/off fan', async ({ page }) => {
 });
 
 test('Test turn on/off light', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('https://smart-offices.vercel.app/');
 
   await page.click('label.button_LED');
 

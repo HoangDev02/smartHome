@@ -5,7 +5,7 @@ test('Test đăng nhập', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     // Navigate to the login page using the Playwright page object
-    await page.goto('http://localhost:3000/login');
+    await page.goto('https://smart-offices.vercel.app/login');
   
     // Thực hiện đăng nhập
     await loginPage.login('a', '123456');
@@ -15,13 +15,13 @@ test('Test đăng nhập', async ({ page }) => {
 
   
     // Kiểm tra rằng sau khi đăng nhập thành công, URL đã chuyển đổi
-    await expect(page).toHaveURL('http://localhost:3000');
+    await expect(page).toHaveURL('https://smart-offices.vercel.app/');
 });
 test('Failed login with incorrect username', async ({ page }) => {
     const loginPage = new LoginPage(page);
   
     
-    await page.goto('http://localhost:3000/login');
+    await page.goto('https://smart-offices.vercel.app/login');
   
     // Perform login with incorrect username
     await loginPage.login('r', '123456');
@@ -37,14 +37,14 @@ test('Failed login with incorrect username', async ({ page }) => {
     await expect(errorMessage).toContain('Wrong username or password'); 
   
     // Check that after a failed login, the URL does not change 
-    await expect(page).toHaveURL('http://localhost:3000/login');
+    await expect(page).toHaveURL('https://smart-offices.vercel.app/login');
   });
   
   test('Failed login with incorrect password', async ({ page }) => {
     const loginPage = new LoginPage(page);
   
     // Navigate to the login page
-    await page.goto('http://localhost:3000/login');
+    await page.goto('https://smart-offices.vercel.app/login');
   
     // Perform login with incorrect password
     await loginPage.login('a', '12347');
@@ -60,13 +60,13 @@ test('Failed login with incorrect username', async ({ page }) => {
     
   
     // Check that after a failed login, the URL does not change (or you can check for error messages)
-    await expect(page).toHaveURL('http://localhost:3000/login');
+    await expect(page).toHaveURL('https://smart-offices.vercel.app/login');
   });
   test('Failed login with empty username and password', async ({ page }) => {
     const loginPage = new LoginPage(page);
   
     // Navigate to the login page
-    await page.goto('http://localhost:3000/login');
+    await page.goto('https://smart-offices.vercel.app/login');
   
     // Perform login with empty username and password
     await loginPage.login('', '');
@@ -82,14 +82,14 @@ test('Failed login with incorrect username', async ({ page }) => {
       await expect(errorMessage).toContain('Please enter username and password'); // Replace with the expected error message
     
     // Check that after a failed login, the URL does not change (or you can check for error messages)
-    await expect(page).toHaveURL('http://localhost:3000/login');
+    await expect(page).toHaveURL('https://smart-offices.vercel.app/login');
   });
   
   test('Failed login with valid username and empty password', async ({ page }) => {
     const loginPage = new LoginPage(page);
   
     // Navigate to the login page
-    await page.goto('http://localhost:3000/login');
+    await page.goto('https://smart-offices.vercel.app/login');
   
     // Perform login with a valid username and an empty password
     await loginPage.login('a', '123#');
@@ -103,14 +103,14 @@ test('Failed login with incorrect username', async ({ page }) => {
     // Assert that the error message exists
     await expect(errorMessage).toContain('Wrong username or password'); // Replace with the expected error message
     // Check that after a failed login, the URL does not change (or you can check for error messages)
-    await expect(page).toHaveURL('http://localhost:3000/login');
+    await expect(page).toHaveURL('https://smart-offices.vercel.app/login');
   });
   
   test('Failed login with non-existent username and valid password', async ({ page }) => {
     const loginPage = new LoginPage(page);
   
     // Navigate to the login page
-    await page.goto('http://localhost:3000/login');
+    await page.goto('https://smart-offices.vercel.app/login');
   
     // Perform login with a non-existent username and a valid password
     await loginPage.login('iou', '123456');
@@ -120,5 +120,5 @@ test('Failed login with incorrect username', async ({ page }) => {
 
   
     // Check that after a failed login, the URL does not change (or you can check for error messages)
-    await expect(page).toHaveURL('http://localhost:3000/login');
+    await expect(page).toHaveURL('https://smart-offices.vercel.app/login');
   });
