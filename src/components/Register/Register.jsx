@@ -17,7 +17,7 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     if (password.length < 6) {
-      setErrorMessage("Mật khẩu phải chứa ít nhất 6 ký tự");
+      setErrorMessage("Password must contain at least 6 characters");
       return;
     }
     const newUser = {

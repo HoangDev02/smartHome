@@ -46,7 +46,6 @@
   cursor: pointer;
   padding: 0;
   color: white;
-
 }
 
 p {
@@ -87,7 +86,6 @@ i {
   display: block;
   font-size: 10px;
   position: relative;
-  animation: flicker 1s linear infinite;
 
 }
 
@@ -144,7 +142,7 @@ img {
   position: absolute;
   bottom: 5px;
   right: 5px;
-  animation: motion 5s ease-in-out infinite;
+  /* animation: motion 5s ease-in-out infinite; */
 
 }
 
@@ -289,7 +287,7 @@ button[type="submit"] {
   margin-top: 20px;
 }
 
-@keyframes motion {
+/* @keyframes motion {
   0% {
     transform: translateX(0) rotate(0deg);
   }
@@ -305,19 +303,4 @@ button[type="submit"] {
   100% {
     transform: translateX(0) rotate(0deg);
   }
-} 
-
-@keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    color: #fff;
-    text-shadow: 
-      0 0 7px #fff,
-      0 0 50px #fff,
-      0 0 100px #fff;
-  }
-
-  20%, 24%, 55% {        
-    color: transparent;
-    text-shadow: none;
-  }
-}
+}  */

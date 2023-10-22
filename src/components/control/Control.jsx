@@ -53,10 +53,10 @@ function Control(props) {
               key={device._id}
               className={`wrapper_btn ${device.status ? "checked" : ""}`}
             >
-              <div className="">
+              <div className="device">
                 <label
                   for={`toggle ${device._id}`}
-                  className={`button ${device.status ? "checked" : ""}`}
+                  className={`button button_${device.name} ${device.status ? "checked" : ""}`}
                 >
                   <input
                     className="hidden-checkbox"

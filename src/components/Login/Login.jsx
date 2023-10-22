@@ -39,6 +39,7 @@ const Login = () => {
   return (
     <div class="login-container">
       <h2 className="login-title">Log in</h2>
+      {error && <div className="error-message">{error}</div>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formUsername">
           <Form.Label className="bg-white">Username</Form.Label>
