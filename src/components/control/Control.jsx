@@ -47,7 +47,7 @@ function Control(props) {
     <div className="control">
       <div className="container-btn">
         {pans
-          ?.filter((device) => ["MANUALLY", "PAN", "LED"].includes(device.name))
+          ?.filter((device) => ["MANUALLY", "FAN", "LED"].includes(device.name))
           .map((device) => (
             <div
               key={device._id}
@@ -72,18 +72,20 @@ function Control(props) {
                 </label>
               </div>
               {device.name !== "MANUALLY" && (
-                <span>
-                  <img
-                    src={`${device.img}`}
-                    className={`${
-                      device.name === "PAN" && device.status
-                        ? "rotate-animation"
-                        : ""
-                    }`}
-                    alt=""
-                  />
-                </span>
-              )}
+                  <span>
+                    <img
+                      src={`${device.img}`}
+                      className={`${
+                        device.name === "FAN" && device.status
+                          ? "rotate-animation"
+                          : device.name === "LED" && device.status
+                          ? "light-animation"
+                          : ""
+                      }`}
+                      alt=""
+                    />
+                  </span>
+                )}
               <p className="name_device">{device.name}</p>
               {device.name !== "MANUALLY" && (
                 <div className="handmade_btn">
@@ -108,28 +110,13 @@ function Control(props) {
           }
       </div>
       {
-        pans?.filter((device) => ["DISTANCE", "FLAME", "LCD"].includes(device.name)).map((device) => (
+        pans?.filter((device) => ["DISTANCE", "FLAME"].includes(device.name)).map((device) => (
           <div className="sersorBody">
             <Display 
               key={device.id}
               type = {device.type}
             />
-          {
-              device.name ===  "LCD"  && (
-                <form onSubmit={(e) => handleTypeChange(e, device._id, device.name)}>
-                  <div className="lcd">
-                  <input
-                    className="lcd_button"
-                    type="text"
-                    // value={device.type} // Hiển thị giá trị hiện tại của type
-                    onChange={(e) => setType(e.target.value)}
-                    id={`fanbtn-${device._id}`} 
-                  />
-                </div>
-                </form>
-                
-              )
-            }
+
           </div>
         ))
       }

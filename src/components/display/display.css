@@ -39,3 +39,14 @@
     text-shadow: none;
   }
 }
+@media screen and (max-width: 414px) {
+  .display-value {
+    font-size: 18px;
+  }
+  .display {
+    width: 250px;
+    display: flex;
+    height: 40px;
+    margin: 0px 0px;
+  }
+}

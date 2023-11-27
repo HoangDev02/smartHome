@@ -3,6 +3,8 @@
     margin: 0px auto;
     padding: 90px;
     border-radius: 10px;
+    position: relative;
+    top: 150px;
     background: linear-gradient(to bottom right, #09334b, #012740);
     animation: slideBg 10s ease infinite; 
   }

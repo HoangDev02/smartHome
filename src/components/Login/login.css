@@ -5,6 +5,8 @@
     border-radius: 10px;
     background: linear-gradient(to bottom right, #09334b, #012740);  
     animation: slideBg 10s ease infinite;
+    position: relative;
+    top: 150px;
   }
   @keyframes slideBg {
     0% {

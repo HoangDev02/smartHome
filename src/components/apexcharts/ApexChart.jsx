@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import ReactApexChart from "react-apexcharts";
+import React, {useEffect, useState} from "react";
+import Chart from "react-apexcharts";
 import "./styles.css";
 import {getTempHumiditys} from '../../redux/api/apiTempHumidity'
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,9 +7,9 @@ import { useSelector, useDispatch } from 'react-redux';
 function ApexChart() {
   const temp = useSelector((state) => state.tempHumiditys.temps?.temp);
   const tempHumidity = useSelector((state) => state.tempHumiditys.tempHumiditys?.tempHumidity);
-
+  const [predictedTemperatures, setPredictedTemperatures] = useState([]);
   const dispatch = useDispatch();
-  const timestamps = temp.map(tempData => tempData.timestamp); 
+  const timestamps = temp.map(tempData => tempData.date); 
 
   const dates = timestamps.map(timestamp => {
     const date = new Date(Date.parse(timestamp));
@@ -20,13 +20,17 @@ function ApexChart() {
       minute: '2-digit',
     });
   });
+
   useEffect(() => {
     const interval = setInterval(() => {
-      getTempHumiditys(dispatch); 
+      getTempHumiditys(dispatch);
+      // Add data fetching for predictions
+      // fetchTemperaturePredictions();
     }, 100000);
   
     return () => clearInterval(interval);
   }, []);
+
   const chartData = {
     options: {
       chart: {
@@ -44,7 +48,7 @@ function ApexChart() {
     series: [
       {
         name: "Temperature",
-        data: temp ? temp.map((tempData) => tempData.temperature) : [],
+        data: temp ? temp.map((tempData) => tempData.predicted_temperature) : [],
       },
     ],
   };
@@ -69,17 +73,19 @@ function ApexChart() {
     <div>
       <div className="temperature-chart">
         {/* <h2>Temperature Chart</h2> */}
-        <ReactApexChart
+        <Chart
           options={chartData.options}
           series={chartData.series}
           type="line"
-          height="300"
+          height="350"
           width="700"
         />
       </div>
       <div className="temperature-alert">
         <h3>{alertMessage}</h3>
         <p>{adviceMessage}</p>
+    
+
       </div>
     </div>
   );

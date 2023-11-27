@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/api/apiUser";
 import { registerSuccess, registerFailed } from "../../redux/authSlice";
 import "./register.css";
+import Helmet from "../helmet/Helmet";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -35,6 +36,7 @@ const Register = () => {
   }, [user]);
 
   return (
+    <Helmet title={"Sign up"}>
     <section className="register-container">
       <h2 className="register-title">Sign up</h2>
       {errorMessage && <div className="register-error-message">{errorMessage}</div>}
@@ -45,6 +47,7 @@ const Register = () => {
           placeholder="Enter your email"
           onChange={(e) => setEmail(e.target.value)}
           className="form-control"
+          required
         />
         <label className="bg-white">Username</label>
         <input
@@ -52,6 +55,7 @@ const Register = () => {
           placeholder="Enter your username"
           onChange={(e) => setUserName(e.target.value)}
           className="form-control"
+          required
         />
         <label className="bg-white">Password</label>
         <input
@@ -59,12 +63,14 @@ const Register = () => {
           placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}
           className="form-control"
+          required
         />
         <button type="submit" className="register-button">
           Create account
         </button>
       </form>
     </section>
+    </Helmet>
   );
 };
 

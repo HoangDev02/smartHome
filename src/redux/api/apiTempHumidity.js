@@ -14,7 +14,7 @@ export const getTempHumiditys = async(dispatch,slug) => {
     dispatch(getTempStart());
     try{
         // console.log(process.env.REACT_APP_BACKEND_URL);
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}api/tempHumidity/temp`,)
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_PYTHON_URL}predict`,)
         dispatch(getTempSuccess(res.data))
     }catch(err) {
         dispatch(getTempFail(err))

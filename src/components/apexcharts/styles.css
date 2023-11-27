@@ -33,7 +33,6 @@
 
 .temperature-chart .apexcharts-tooltip {
   background-color: #333;
-  color: #fff;
   border-radius: 4px;
 }
 
@@ -55,4 +54,12 @@
 
 .temperature-alert p {
   color: #fff;
+}
+@media screen and (max-width: 414px) {
+  .temperature-chart {
+    display: none;
+  }
+  .temperature-alert {
+    display: none;
+  }
 }

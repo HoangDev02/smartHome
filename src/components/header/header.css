@@ -92,3 +92,40 @@ form input {
     position: relative;
     left: -170px;
 }
+@media screen and (max-width: 414px) {
+  .logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    padding-left: 0px;
+    /* background-color: red; */
+  }
+  .logo i {
+    color: rgb(0, 200, 133);
+    font-size: 20px;
+  }
+  .logo h1 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-color);
+  }
+  form input {
+    display: none;
+  }
+  .mobile__menu {
+    display: flex;
+    position: absolute;
+    left: 80%;
+  }
+  .mobile__menu i {
+    font-size: 25px;
+    /* left: 43%; */
+  }
+  .date-time {
+    display: none;
+  }
+  .nav__icons {
+    display: none;
+  }
+}

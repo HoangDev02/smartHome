@@ -8,20 +8,21 @@ import { createAxios } from "../../redux/createInstance";
 import "./header.css";
 import { Container, Row } from "reactstrap";
 function Header(props) {
-  const user = useSelector((state)=> state.auth.login.currentUser);
+  const [menu, setMenu] = useState(true);
+  const handleClick = () => setMenu(!menu);
+  const user = useSelector((state) => state.auth.login.currentUser);
   const accessToken = user?.accessToken;
   const id = user?._id;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let axiosJWT = createAxios(user,dispatch,logoutSuccess);
+  let axiosJWT = createAxios(user, dispatch, logoutSuccess);
   const [currentTime, setCurrentTime] = useState(new Date());
 
-
-  const handleLogout = () =>{
-    logOut(dispatch,id,navigate, accessToken, axiosJWT);
+  const handleLogout = () => {
+    logOut(dispatch, id, navigate, accessToken, axiosJWT);
     // console.log(user);
-  }
-  
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
@@ -60,16 +61,33 @@ function Header(props) {
                 <span className="notification"> 2</span>
               </span>
               {user ? (
-              <>
-                <span className="navbar-username bg-white">Hi, {user.username}</span>
-                <Link to="/logout" className="navbar-logout bg-white" onClick={handleLogout}>Log out</Link>
-              </>
-            ) : (
-              <>
-                <Link to="/login" className="navbar-link bg-white">Login</Link>
-                <Link to="/register" className="navbar-link bg-white">Register</Link>
-              </>
-            )}
+                <>
+                  <span className="navbar-username bg-white">
+                    Hi, {user.username}
+                  </span>
+                  <Link
+                    to="/logout"
+                    className="navbar-logout bg-white"
+                    onClick={handleLogout}
+                  >
+                    Log out
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="navbar-link bg-white">
+                    Login
+                  </Link>
+                  <Link to="/register" className="navbar-link bg-white">
+                    Register
+                  </Link>
+                </>
+              )}
+            </div>
+            <div className="mobile__menu">
+              <span onClick={() => handleClick()}>
+                <i class={menu ? "uil uil-bars" : "uil uil-multiply"}></i>
+              </span>
             </div>
           </div>
         </Row>
