@@ -219,9 +219,7 @@ async function subscriber() {
       
       // Tìm thiết bị dựa trên tên
       const device = await Device.findOne({ name: devicename });
-  
       console.log(`device ${devicename}`);
-      
       if (device) {
         if (led === 1) {
           Device.updateOne(

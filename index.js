@@ -1,5 +1,9 @@
 const express = require('express');
 const app = express();
+const http = require('http');
+const socketIO = require('socket.io');
+const server = http.createServer(app);
+const io = socketIO(server);
 var cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -21,7 +25,7 @@ const userRouter = require('./api/routes/userRouter')
 
 const port = 3100;
 dotenv.config();
-
+const fs = require('fs'); // Thêm module này
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: true }));
 
@@ -38,80 +42,46 @@ app.use(session({
 app.use(methodOverride('_method'))
 app.use(morgan('combined'))
 
-// var options = {
-//   host: 'f63a3874d1364c15ba9d13699c92dc63.s1.eu.hivemq.cloud',
-//   port: 8883,
-//   protocol: 'mqtts',
-//   username: 'esp8266Den',
-//   password: 'esp8266Den'
-// }
-// var client = mqtt.connect(options);
 
-// client.on('error', function (error) {
-//   console.log(error);
-// });
-// // Sự kiện khi kết nối thành công
-// client.on('connect', connect);
-
-// client.on('message', (receivedTopic, message) => {
-//   if (receivedTopic === 'DHT') { // Kiểm tra topic nhận được
-//     // Chuyển đổi thông điệp từ dạng chuỗi thành một đối tượng dữ liệu
-//     const messageString = message.toString();
-//     const data = parseTemperatureAndHumidity(messageString);
-
-//     // Kiểm tra xem có dữ liệu hợp lệ
-//     if (data) {
-//       const { temperature, humidity } = data;
-//       console.log(`Temperature: ${temperature}, Humidity: ${humidity}`);
-
-//       // Lưu dữ liệu vào MongoDB
-//       const tempHumidityData = new TempHumidity({
-//         temperature,
-//         humidity,
-//         timestamp: new Date(),
-//       });
-
-//       tempHumidityData.save()
-//         .then(() => {
-//           console.log('Dữ liệu đã được lưu vào MongoDB');
-//         })
-//         .catch((error) => {
-//           console.error('Lỗi khi lưu dữ liệu vào MongoDB:', error);
-//         });
-//     } else {
-//       console.error('Dữ liệu không hợp lệ:', messageString);
-//     }
-//   }
-// });
-
-// // Hàm để phân tích dữ liệu nhiệt độ và độ ẩm từ chuỗi
-// function parseTemperatureAndHumidity(messageString) {
-//   const temperatureRegex = /Temperature: (\d+\.\d+)°C/i;
-//   const humidityRegex = /Humidity: (\d+)%/i;
-
-//   const temperatureMatch = messageString.match(temperatureRegex);
-//   const humidityMatch = messageString.match(humidityRegex);
-
-//   if (temperatureMatch && humidityMatch) {
-//     const temperature = parseFloat(temperatureMatch[1]);
-//     const humidity = parseInt(humidityMatch[1]);
-//     return { temperature, humidity };
-//   }
-
-//   return null; // Trả về null nếu không thể trích xuất dữ liệu
-// }
-
-// // Xử lý sự kiện khi bị ngắt kết nối
-// client.on('close', () => {
-//   console.log('Kết nối đã đóng');
-// });
-
-app.use('/api/room', roomsRoutes)
+// app.use('/api/room', roomsRoutes)
 app.use('/api/devices', deviceRouter);
 app.use('/api/tempHumidity', tempHumidityRouter);
 app.use('/api/user', userRouter);
 
-app.listen(port, () => {
+app.get('/', (req, res) => {
+  res.send("IP Webcam Server");
+  req.end()
+});
+process.on('uncaughtException', (error) => {
+  console.error('Unhandled Exception:', error);
+});
+
+process.on('unhandledRejection', (error) => {
+  console.error('Unhandled Rejection:', error);
+});
+io.on('connection', (socket) => {
+  console.log('Client connected');
+
+  socket.on('stream', (image) => {
+    socket.broadcast.emit('stream', image);
+  });
+
+  // Đăng ký trình xử lý lỗi cho mỗi socket
+  socket.on('error', (error) => {
+    console.error('Socket error:', error);
+  });
+
+  // Xử lý khi socket đóng kết nối
+  socket.on('disconnect', (reason) => {
+    console.log(`Client disconnected: ${reason}`);
+  });
+
+  // Xử lý lỗi đọc dữ liệu
+  socket.on('close', (error) => {
+    console.log(`Socket closed: ${error}`);
+  });
+});
+server.listen(port, () => {
   subscriber();
   connect();
   connectMongodb();
