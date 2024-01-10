@@ -22,13 +22,11 @@ function ApexChart() {
   });
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    // const interval = setInterval(() => {
       getTempHumiditys(dispatch);
-      // Add data fetching for predictions
-      // fetchTemperaturePredictions();
-    }, 100000);
-  
-    return () => clearInterval(interval);
+    // }, 100000);
+    // console.log(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   const chartData = {

@@ -18,7 +18,7 @@ function Control(props) {
       name: newName,
       status: newStatus,
     };
-    console.log(id);
+    console.log("id pan" + id);
     console.log(updateDevice);
     try {
       await updatePan(id, dispatch, updateDevice, navigate); // Gọi action updatePan và chờ cập nhật xong
@@ -47,7 +47,7 @@ function Control(props) {
     <div className="control">
       <div className="container-btn">
         {pans
-          ?.filter((device) => ["MANUALLY", "FAN", "LED"].includes(device.name))
+          ?.filter((device) => ["MANUALLY", "PAN", "LED", "BUTTONFLOOR"].includes(device.name))
           .map((device) => (
             <div
               key={device._id}
@@ -80,6 +80,8 @@ function Control(props) {
                           ? "rotate-animation"
                           : device.name === "LED" && device.status
                           ? "light-animation"
+                          : device.name === "BUTTONFLOOR" && device.status
+                          ? "light-animation"
                           : ""
                       }`}
                       alt=""
@@ -110,7 +112,7 @@ function Control(props) {
           }
       </div>
       {
-        pans?.filter((device) => ["DISTANCE", "FLAME"].includes(device.name)).map((device) => (
+        pans?.filter((device) => [ "FLAME"].includes(device.name)).map((device) => (
           <div className="sersorBody">
             <Display 
               key={device.id}
