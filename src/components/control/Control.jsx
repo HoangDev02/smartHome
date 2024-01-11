@@ -13,7 +13,7 @@ function Control(props) {
   const pans = useSelector((state) => state.pans.pans?.pan);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handlePan = async (id, newName, newStatus) => {
+  const handleDevice = async (id, newName, newStatus) => {
     const updateDevice = {
       name: newName,
       status: newStatus,
@@ -47,7 +47,7 @@ function Control(props) {
     <div className="control">
       <div className="container-btn">
         {pans
-          ?.filter((device) => ["MANUALLY", "PAN", "LED", "BUTTONFLOOR"].includes(device.name))
+          ?.filter((device) => ["MANUALLY", "FAN", "LED", "DOOR"].includes(device.name))
           .map((device) => (
             <div
               key={device._id}
@@ -63,7 +63,7 @@ function Control(props) {
                     type="checkbox"
                     checked={device.status}
                     onChange={() =>
-                      handlePan(device._id, device.name, !device.status)
+                      handleDevice(device._id, device.name, !device.status)
                     } // Bật/Tắt trạng thái thiết bị khi nhấn nút
                     id={`toggle ${device._id}`}
                     // id="toggle"
@@ -71,7 +71,7 @@ function Control(props) {
                   <span class="slider"></span>
                 </label>
               </div>
-              {device.name !== "MANUALLY" && (
+              {device.name !== "MANUALLY" && device.name !== "DOOR" && (
                   <span>
                     <img
                       src={`${device.img}`}
@@ -79,8 +79,6 @@ function Control(props) {
                         device.name === "FAN" && device.status
                           ? "rotate-animation"
                           : device.name === "LED" && device.status
-                          ? "light-animation"
-                          : device.name === "BUTTONFLOOR" && device.status
                           ? "light-animation"
                           : ""
                       }`}
@@ -100,7 +98,7 @@ function Control(props) {
                     type="checkbox"
                     checked={device.status}
                     onChange={() =>
-                      handlePan(device._id, device.name, !device.status)
+                      handleDevice(device._id, device.name, !device.status)
                     }
                     id={`fanbtn-${device._id}`} 
                   />

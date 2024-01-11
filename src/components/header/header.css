@@ -51,7 +51,9 @@
 .s__icon {
     position: relative;
 }
-
+.mobile__menu {
+  display: none;
+}
 .notification {
     position: absolute;
     top: 25%;
@@ -90,13 +92,49 @@ form input {
 .date-time {
     color: var(--text-color);
     position: relative;
-    left: -170px;
 }
 @media screen and (max-width: 414px) {
+  .logo i {
+    color: rgb(0, 200, 133);
+    font-size: 20px;
+  }
+  .logo h1 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-color);
+  }
+  .mobile__menu span i {
+    font-size: 25px;
+  }
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    padding: 20px;
+    width: 10rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);  
+  }
+  .mobile-menu a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+  }
+  .mobile-menu span {
+    color: #333;
+    
+  }
+  .date-time {
+    display: none;
+  }
+  .nav__icons {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
   .logo {
-    position: relative;
     display: flex;
-    align-items: center;
     column-gap: 8px;
     padding-left: 0px;
     /* background-color: red; */
@@ -110,22 +148,37 @@ form input {
     font-weight: 700;
     color: var(--text-color);
   }
-  form input {
-    display: none;
-  }
   .mobile__menu {
     display: flex;
     position: absolute;
-    left: 80%;
+    left: 90%;
   }
-  .mobile__menu i {
+  .mobile__menu span i {
     font-size: 25px;
-    /* left: 43%; */
   }
   .date-time {
     display: none;
   }
   .nav__icons {
     display: none;
+  }
+
+}
+@media (max-width: 375px) {
+  .header {
+    padding: 0 10px; 
+  }
+  
+  .logo h1 {
+    font-size: 16px;
+  }
+  
+  .navbar-link, 
+  .navbar-username  {
+    padding: 5px 10px;
+    font-size: 12px; 
+  }
+  .mobile__menu span i {
+    font-size: 25px;
   }
 }

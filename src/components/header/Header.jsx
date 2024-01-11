@@ -8,8 +8,8 @@ import { createAxios } from "../../redux/createInstance";
 import "./header.css";
 import { Container, Row } from "reactstrap";
 function Header(props) {
-  const [menu, setMenu] = useState(true);
-  const handleClick = () => setMenu(!menu);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const user = useSelector((state) => state.auth.login.currentUser);
   const accessToken = user?.accessToken;
   const id = user?._id;
@@ -17,7 +17,9 @@ function Header(props) {
   const navigate = useNavigate();
   let axiosJWT = createAxios(user, dispatch, logoutSuccess);
   const [currentTime, setCurrentTime] = useState(new Date());
-
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   const handleLogout = () => {
     logOut(dispatch, id, navigate, accessToken, axiosJWT);
     // console.log(user);
@@ -43,10 +45,6 @@ function Header(props) {
                 {/* <p>Since 1989</p> */}
               </Link>
             </div>
-
-            <form action="">
-              <input type="text" placeholder="Search" />
-            </form>
             <div className="date-time">
               {currentTime.toLocaleDateString("en-US", {
                 weekday: "long",
@@ -85,9 +83,36 @@ function Header(props) {
               )}
             </div>
             <div className="mobile__menu">
-              <span onClick={() => handleClick()}>
-                <i class={menu ? "uil uil-bars" : "uil uil-multiply"}></i>
+              <span onClick={() => toggleMenu()}>
+                <i class={isMenuOpen ? "uil uil-multiply" : "uil uil-bars"}></i>
               </span>
+              {isMenuOpen && (
+                <div className="mobile-menu">
+                  {user ? (
+                    <>
+                      <span className="navbar-username bg-white">
+                        Hi, {user.username}
+                      </span>
+                      <Link
+                        to="/logout"
+                        className="navbar-logout bg-white"
+                        onClick={handleLogout}
+                      >
+                        Log out
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/login" className="navbar-link bg-white">
+                        Login
+                      </Link>
+                      <Link to="/register" className="navbar-link bg-white">
+                        Register
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </Row>

@@ -120,15 +120,7 @@ img {
   animation: spin 2s linear infinite;
 }
 
-.light-animation {
-  /* filter: contrast(150%);
-  filter: saturate(200%);
-  filter: brightness(150%); */
-  filter: hue-rotate(270deg);
-  filter: invert(200%);
-  box-shadow: inset 5px 10px 50px rgb(255, 0, 221);
-  /* Tăng độ bão hòa màu lên 200% */
-}
+
 
 @keyframes spin {
   from {
