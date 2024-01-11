@@ -75,8 +75,8 @@ function ApexChart() {
           options={chartData.options}
           series={chartData.series}
           type="line"
-          height="350"
-          width="700"
+          height={window.innerWidth < 500 ? 300 : 350}
+          width={window.innerWidth < 500 ? 300 : 700}  
         />
       </div>
       <div className="temperature-alert">
